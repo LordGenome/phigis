@@ -1,5 +1,8 @@
 # phigis
 PCR primer design
+
+Exome and genome-scale genetic diagnostics has increased the demand for PCR confirmations in the proband and for prenatal and cascade testing in relatives. Genetics Service Exome-based tests, identifying tens to hundreds of targets per week, many of which require the design of cognate PCR amplicons for further testing in other at risk individuals or for prenatal testing. Existing tools are not readily scalable for high throughput primer design: it takes 15 to 30 minutes to use web-driven tools like Primer 3 to design each primer pair, which must then be checked using SNPchecker, an application that is no longer supported. Other high throughput designer tools like SNP Box and Primer Mapper are not optimised for high-throughput, exon-focussed work using human genome reference tools. Simply feed phigis a list of variants in bed file format and primers will be designed in a few minutes using commodity hardware such as a Macbook.
+
 NAME
        phigis
 
@@ -31,7 +34,7 @@ INPUT
        o   exon file in bed format
 
    OUTPUT
-       o   log file, including ipcress in silico PCR resulyd
+       o   log file, including ipcress in silico PCR result
 
        o   primer file contained designed primer specifications
 
@@ -45,4 +48,15 @@ INPUT
        primer3 uses themodynamic parameters stored somewhere like
        /usr/local/Cellar/primer3/2.3.7/share/primer3/primer3_config/
        The path may vary depending how you installed primer3, and so may the version number
+       
+ Additional relative file paths not included
+       geneme/genome_fasta.fa : the fasta genome file with lower case repeats
+       geneme/genome_fasta.fa.fai : the samtools indexed fasta file
+       SNP/SNP_147.bed : the SNP bed file
+       RefSeq/RefFlat_coding_exons.bed : the exons file
+       test.bed : the bed file describing the variant needing primer design
+       
+       
+       
+       
 
