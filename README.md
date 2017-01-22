@@ -15,15 +15,16 @@ DESCRIPTION
        This is a wrapper to call shell, samtools and primer3 to make primers
        using a samtools indexed genome, dbSNP and RefFlat co-ordinates and
        gene names.  It reads all variants in a bedfile, finds the
-       corresponding exon in RefFlat, designs primers that flank the exon by
-       115 bases, avoiding common SNPs being withn 8 bases of the 3' end of
-       the primers.  If the exon is >450 bases then only 150 base flanking
+       corresponding exon in RefFlat, designs primers that flank the exon, 
+       avoiding common SNPs being withn 8 bases of the 3' end of
+       the primers.  If the exon is >450 bases then only 60 base flanking
        sequences of the variant are used.  Primers are checked using the
        ipcress in silico PCR script.
 
        NB make sure the genome builds are consistent
 
 INPUT
+
        o   bed file as text file with unix line endings describing variants
 
        o   genome build with samtools index Repeat sequence marked as lower
@@ -34,6 +35,7 @@ INPUT
        o   exon file in bed format
 
    OUTPUT
+   
        o   log file, including ipcress in silico PCR result
 
        o   primer file contained designed primer specifications
@@ -56,7 +58,11 @@ INPUT
        RefSeq/RefFlat_coding_exons.bed : the exons file
        test.bed : the bed file describing the variant needing primer design
        
-       
+References
+Bioinformatics. 2009 25:2078-9. doi: 10.1093/bioinformatics/btp352. Epub 2009 The Sequence Alignment/Map format and SAMtools Li H et al.
+Nucleic Acids Res. 2012 e115 Primer3—new capabilities and interfaces Untergasser,A et al.
+BMC Bioinformatics 20056:31 Automated generation of heuristics for biological sequence comparison Slater G & Birney E
+
        
        
 
