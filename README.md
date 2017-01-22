@@ -59,8 +59,11 @@ INPUT
        test.bed : the bed file describing the variant needing primer design
        
 References
+
 Bioinformatics. 2009 25:2078-9. doi: 10.1093/bioinformatics/btp352. Epub 2009 The Sequence Alignment/Map format and SAMtools Li H et al.
+
 Nucleic Acids Res. 2012 e115 Primer3—new capabilities and interfaces Untergasser,A et al.
+
 BMC Bioinformatics 20056:31 Automated generation of heuristics for biological sequence comparison Slater G & Birney E
 
        
