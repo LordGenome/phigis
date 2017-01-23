@@ -34,7 +34,7 @@ INPUT
 
        o   exon file in bed format
 
-   OUTPUT
+OUTPUT
    
        o   log file, including ipcress in silico PCR result
 
@@ -66,6 +66,67 @@ Nucleic Acids Res. 2012 e115 Primer3—new capabilities and interfaces Untergass
 
 BMC Bioinformatics 2005 6:31 Automated generation of heuristics for biological sequence comparison Slater G & Birney E
 
-       
-       
+Program Description
+   Global Variables
+       There are probably too many, not all are used but all are commented. It
+       is easier/lazier to pass them between subroutines as globals.
+
+   SETUP
+   
+       o   Setup file locations, hard coded but with options to change to STDN
+
+       o   Takes hard coded input of date
+
+       o   Setup output and log files
+
+       o   Setup path to indexed genome fasta
+
+       o   Read dbSNP, RefFlat and Variant locus bed file
+
+       o   Setup padding distance (increments until primers designed)
+
+   MAIN LOOP
+   
+       For each padding value, try to make primers using primer3
+
+       o   find_exon_co_ords: find the exon that includes the SNP of interest
+
+       o   define_target_range: this is the exon + 15 bases + the padding.
+           The region of interest.
+
+       o   write_primer3_file: use samtools with backtick system call to
+           extract the ROI as fasta,remove the fasta header then identify any
+           SNPs in the region populate the boulderIO file used by primer3 with
+           the ROI, excluding the exon + 15 bases and exclude SNPs within 8
+           bases of the 3' end of the primer
+
+       o   run_primer3 with backtick system call
+
+           The values $target_exon, $primer3_template, $primer_space,
+           $exon_plus and exclusion list are interpoloated.  Primer3 is
+           forbidden to use primers with SNPs 8 bases or less from 3' Lower
+           case (repeat) is excluded within 10 of the 3'
+
+           SEQUENCE_ID\=$target_exon SEQUENCE_TEMPLATE\=$primer3_template
+           PRIMER_TASK\=pick_pcr_primers PRIMER_PICK_LEFT_PRIMER\=1
+           PRIMER_PICK_INTERNAL_OLIGO\=0 PRIMER_PICK_RIGHT_PRIMER\=1
+           PRIMER_OPT_SIZE\=22 PRIMER_MIN_SIZE\=18 PRIMER_MAX_SIZE\=28
+           PRIMER_LOWERCASE_MASKING=10 PRIMER_MAX_NS_ACCEPTED\=1
+           PRIMER_MIN_THREE_PRIME_DISTANCE=3
+           PRIMER_PRODUCT_SIZE_RANGE\=100\-600 P3_FILE_FLAG\=1
+           SEQUENCE_TARGET\=$primer_space,$exon_plus
+           SEQUENCE_EXCLUDED_REGION=$exclusion_list
+
+       o   check_SNPs: check location of SNPs witihn ROI
+
+       o   IF primer3 succeeds product size will be > 0
+           extract_primers_and_amplicon will write out primers and other
+           details to tsv file
+
+       o   ELSE add 30 to the padding and try again up to padding = 185.
+
+       o   Primers are checked using the in silico PCR program ipcress and an
+           ipcress file is added to the log  The amplicon site should be
+           unique and the product size should be identical to the predicted
+           product size.
 
