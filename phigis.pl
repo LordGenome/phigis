@@ -413,9 +413,6 @@ foreach $variant(@file_list)
 	}
 exit ;
 
-########################################################################
-#subroutines
-########################################################################
 
 ########################################################################
 #subroutines
@@ -488,12 +485,6 @@ sub find_exon_co_ords
 			$primer_file_name = $line ; #this is used for the primer file name
 			#if exon is too large, take 150 base flanks of the SNP
 #			if (($exon_size) > 450 || $padding == 185) #or if $exon_start > $variant_end + 15 use_genomic_not_ccds
-#				{
-#				$exon_start = ($variant_start - 60) ;
-#				$exon_end = ($variant_end + 60) ;
-#				$target_exon = "$variant_chr\_$exon_start\-$exon_end" ;
-#				$exon_size = $exon_end - $exon_start ;
-#				}
 			last; # may need t move this
 			}
 		}
@@ -626,10 +617,6 @@ sub define_target_range
 		##################################################################################
 		#to add: loop for multiple lower case instances
 		##################################################################################
-		#while my $match (<= $count)
-		#	{
-		#	print "$count\t$1\n";
-		#	my $exclude = substr
 		print "exclusion list = $exclusion_list\n";
 		print $fh_primer_log "exclusion list = $exclusion_list\n";
 	}
@@ -640,7 +627,6 @@ sub write_primer3_file
 	print "** sub write_primer3_file writing primer3 file **\n";
 	#convert $roi_fasta to primer3 sequencing template
 	#reomve line breaks
-	
 	#reomve fasta header with substr
 	$primer3_template = substr $roi_fasta, -"$len_roi_fasta" ; 
 	#Hard coded Primer3 input parameters with $primer3_template interpolated
@@ -850,6 +836,6 @@ sub extract_primers_and_amplicon
 	#tidy files
 	}
 ########################################################################
-#
+#END
 ########################################################################
 
